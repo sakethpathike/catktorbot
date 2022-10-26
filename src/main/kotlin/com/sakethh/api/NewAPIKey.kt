@@ -75,5 +75,5 @@ fun generatedNewToken(): String {
         generatedToken
     }else{
         generateToken()
-    }
+    }.also { kMongo.close() }
 }

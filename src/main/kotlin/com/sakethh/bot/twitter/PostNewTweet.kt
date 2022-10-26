@@ -1,5 +1,6 @@
 package com.sakethh.bot.twitter
 
+import com.sakethh.api.addNewPostToDB
 import com.sakethh.redditData.fetchRandomPost
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -10,7 +11,6 @@ import org.apache.commons.io.FileUtils
 import twitter4j.Twitter
 import twitter4j.v1.StatusUpdate
 import java.io.File
-import java.io.InputStream
 
 fun Routing.postNewTweet() {
     authenticate("botAuth") {
@@ -21,13 +21,19 @@ fun Routing.postNewTweet() {
                 .build()
             val refFile = File("/src/main/assets/ref.jpg")
             val randomTweetData = fetchRandomPost()
-            val refURL = Url(randomTweetData.data.url).toURI().toURL()
+            val fetchedTweetData = if(!randomTweetData.data.is_video){
+                randomTweetData
+            }else{
+                fetchRandomPost()
+            }
+            val refURL = Url(fetchedTweetData.data.url).toURI().toURL()
             FileUtils.copyURLToFile(refURL, refFile)
             val tweetTitle =
-                "\"${randomTweetData.data.title}\"\n\nu/${randomTweetData.data.author} originally posted this on r/${randomTweetData.data.subreddit}\nhttps://reddit.com${randomTweetData.data.permalink}"
+                "\"${fetchedTweetData.data.title}\"\n\nu/${fetchedTweetData.data.author} originally posted this on r/${fetchedTweetData.data.subreddit}\nhttps://reddit.com${fetchedTweetData.data.permalink}"
             val statusUpdate = StatusUpdate.of(tweetTitle).media(refFile)
             twitterBuilder.v1().tweets().updateStatus(statusUpdate)
-            call.respond(tweetTitle)
+            val addToDB = addNewPostToDB(author = fetchedTweetData.data.author, is_video = fetchedTweetData.data.is_video, over_18 = fetchedTweetData.data.over_18, permalink = fetchedTweetData.data.permalink, subreddit = fetchedTweetData.data.subreddit, title = fetchedTweetData.data.title, url = fetchedTweetData.data.url)
+            call.respond("$tweetTitle\n$addToDB")
         }
     }
 }

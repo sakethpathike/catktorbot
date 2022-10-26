@@ -20,12 +20,7 @@ fun Routing.postNewTweet() {
                 .oAuthAccessToken(System.getenv("oAccessTokenKey"), System.getenv("oAccessTokenSecret"))
                 .build()
             val refFile = File("/src/main/assets/ref.jpg")
-            val randomTweetData = fetchRandomPost()
-            val fetchedTweetData = if(!randomTweetData.data.is_video){
-                randomTweetData
-            }else{
-                fetchRandomPost()
-            }
+            val fetchedTweetData = fetchRandomPost()
             val refURL = Url(fetchedTweetData.data.url).toURI().toURL()
             FileUtils.copyURLToFile(refURL, refFile)
             val tweetTitle =

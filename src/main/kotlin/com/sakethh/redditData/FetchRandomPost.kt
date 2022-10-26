@@ -29,14 +29,17 @@ suspend fun fetchRandomPost(): Children {
         }
     }
     val fetchDataFromURL = ktorClient.get(pickedSubredditURL).body<RedditData>()
-    val randomObject = fetchDataFromURL.data.children.random()
+    val fetchedDataFromURL = mutableListOf<Children>()
+    for(children in fetchDataFromURL.data.children){
+       if(!children.data.is_video && children.data.url.contains(regex = Regex("/i.redd.it")) && !children.data.over_18){
+           fetchedDataFromURL.add(children)
+       }
+    }
+    val randomObject = fetchedDataFromURL.random()
     val randomObjectCheckingFromDB = collectionData.find("""{permalink:"${randomObject.data.permalink}"}""").count()
-    return if (randomObjectCheckingFromDB == 0) {
+    return if(randomObjectCheckingFromDB == 0){
         randomObject
-    } else {
-        fetchDataFromURL.data.children.random()
-    }.also {
-        kMongo.close()
-        ktorClient.close()
+    }else{
+        fetchedDataFromURL.random()
     }
 }

@@ -29,7 +29,7 @@ fun Application.configureSecurity() {
                 val kMongo = KMongo.createClient(System.getenv("MONGODB_URL"))
                 val collectionData =
                     kMongo.getDatabase(System.getenv("DB_NAME")).getCollection(System.getenv("BOT_AUTH"))
-                val expectedKey = collectionData.find("""{botKey:"$keyFromHeader"}""").toList()[0].getString("botKey")
+                val expectedKey = collectionData.find("""{_id:"botKey"}""").toList()[0].getString("botKey")
                 if (expectedKey == keyFromHeader) {
                     BotKey(keyFromHeader)
                 } else {

@@ -33,9 +33,10 @@ dependencies {
     implementation("io.ktor:ktor-client-cio:2.1.1")
     implementation("io.ktor:ktor-client-content-negotiation:2.1.1")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktor_version")
+    implementation("org.twitter4j:twitter4j-core:4.1.0")
     implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
+    implementation("commons-io:commons-io:2.11.0")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
-    implementation("io.ktor:ktor-server-freemarker:$ktor_version")
 }

@@ -1,1 +1,1 @@
-rootProject.name = "com.sakethh.catktorbot"
+rootProject.name = "catktorbot"

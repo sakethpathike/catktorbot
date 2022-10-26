@@ -1,11 +1,13 @@
 package com.sakethh.api
 
 import io.ktor.client.*
+import io.ktor.client.engine.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.plugins.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.date.*
@@ -16,16 +18,15 @@ import org.litote.kmongo.insertOne
 
 fun Routing.newApiKey() {
     get("/newApiKey") {
-        call.respond(createNewIP())
+        call.respond(createNewIP(call.request.origin.remoteHost))
     }
 }
 
-suspend fun doesIPExists(): Boolean {
+suspend fun doesIPExists(clientIP:String): Boolean {
     val kMongo = KMongo.createClient(System.getenv("MONGODB_URL"))
     val client = HttpClient(CIO)
     var ipCount: Int
     coroutineScope {
-        val clientIP = client.get("https://api.ipify.org/").bodyAsText()
         val collectionData = kMongo.getDatabase(System.getenv("DB_NAME")).getCollection(System.getenv("API_COLLECTION_NAME"))
         ipCount = collectionData.find("""{ip:"$clientIP"}""").count()
     }
@@ -35,10 +36,9 @@ suspend fun doesIPExists(): Boolean {
     }
 }
 
-suspend fun createNewIP(): String {
-    val doesIPExists = doesIPExists()
+suspend fun createNewIP(clientIP:String): String {
+    val doesIPExists = doesIPExists(clientIP =clientIP)
     val ktorClient = HttpClient(CIO)
-    val clientIP = ktorClient.get("https://api.ipify.org/").bodyAsText()
     val kMongo = KMongo.createClient(System.getenv("MONGODB_URL"))
     val collectionData = kMongo.getDatabase(System.getenv("DB_NAME")).getCollection(System.getenv("API_COLLECTION_NAME"))
     val bearerToken: String = if (!doesIPExists) {

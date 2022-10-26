@@ -11,19 +11,6 @@ data class BotKey(val apiKey: String) : Principal
 
 fun Application.configureSecurity() {
     install(Authentication) {
-        apiKey("apiKey") {
-            validate { keyFromHeader ->
-                val kMongo = KMongo.createClient(System.getenv("MONGODB_URL"))
-                val collectionData =
-                    kMongo.getDatabase(System.getenv("DB_NAME")).getCollection(System.getenv("API_COLLECTION_NAME"))
-                val expectedKey = collectionData.find("""{bearerToken:"$keyFromHeader"}""").count()
-                if (expectedKey != 0) {
-                    APIKEY(keyFromHeader)
-                } else {
-                    null
-                }
-            }
-        }
         apiKey("botAuth") {
             validate { keyFromHeader ->
                 val kMongo = KMongo.createClient(System.getenv("MONGODB_URL"))

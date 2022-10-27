@@ -18,12 +18,12 @@
 ###### API Docs :- https://documenter.getpostman.com/view/24098668/2s8YCjBr9o
 
 # Tech Stack
-- [Ktor](https://ktor.io/) - for building bot, API, and posting respective data to the database.
+- [Ktor](https://ktor.io/) - for building the bot, API, and posting respective data to the database.
 - [Ktor-Client](https://ktor.io/docs/getting-started-ktor-client.html) - for retrieving JSON data from subreddits(s).
 - [MongoDB](https://www.mongodb.com/) - for storing previous posts that are posted by the bot, which can be retrieved by the API.
 - [KMongo](https://github.com/Litote/kmongo) - for chit-chatting with MongoDB.
 - [Twitter4j](https://github.com/Twitter4J/Twitter4J) - for interacting with the Twitter API so that the bot can post the data to Twitter.
-- [Apache Commons IO](https://commons.apache.org/proper/commons-io/) - converts the url into a file (so that the bot can tweet the image url as an image that was retrieved from the subreddit).
+- [Apache Commons IO](https://commons.apache.org/proper/commons-io/) - converts the URL into a file (so that the bot can tweet the image URL as an image that was retrieved from the subreddit).
 - [Zeplo](https://www.zeplo.io/) - for triggering the bot endpoint automatically every third hour; In other words, zeplo is used as a cron-job(s) service(if that makes sense in this context).
 - [Render](https://render.com/) - for deploying the project using [Docker](https://www.docker.com/).
 

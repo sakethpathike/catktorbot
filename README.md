@@ -20,7 +20,7 @@
 # Tech Stack
 - [Ktor](https://ktor.io/) - for building bot, API, and posting respective data to the database.
 - [MongoDB](https://www.mongodb.com/) - for storing previous posts that are posted by the bot, which can be retrieved by the API.
-- [Cron Jobs](https://cron-job.org/) - for triggering the bot endpoint automatically every third hour.
+- [Zeplo](https://www.zeplo.io/) - for triggering the bot endpoint automatically every third hour; In other words, zeplo is used as a cron-job(s) service(if that makes sense in this context).
 - [Render](https://render.com/) - for deploying the project using [Docker](https://www.docker.com/).
 
 # License

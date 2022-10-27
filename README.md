@@ -25,6 +25,7 @@
 - [Twitter4j](https://github.com/Twitter4J/Twitter4J) - for interacting with the Twitter API so that the bot can post the data to Twitter.
 - [Apache Commons IO](https://commons.apache.org/proper/commons-io/) - converts the URL into a file (so that the bot can tweet the image URL as an image that was retrieved from the subreddit).
 - [Zeplo](https://www.zeplo.io/) - for triggering the bot endpoint automatically every third hour; In other words, zeplo is used as a cron-job(s) service(if that makes sense in this context).
+- [Ktor Plugins:ktor-api-key](https://github.com/LukasForst/ktor-plugins) - It is a simple authentication provider for Ktor that verifies the presence of the API key from the header.
 - [Render](https://render.com/) - for deploying the project using [Docker](https://www.docker.com/).
 
 # License

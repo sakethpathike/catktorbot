@@ -17,6 +17,12 @@
 
 ###### API Docs :- https://documenter.getpostman.com/view/24098668/2s8YCjBr9o
 
+# Tech Stack
+- [Ktor](https://ktor.io/) - for building bot, API, and posting respective data to the database.
+- [MongoDB](https://www.mongodb.com/) - for storing previous posts that are posted by the bot, which can be retrieved by the API.
+- [Cron Jobs](https://cron-job.org/) - for triggering the bot endpoint automatically every third hour.
+- [Render](https://render.com/) - for deploying the project using [Docker](https://www.docker.com/).
+
 # License
 
 ```

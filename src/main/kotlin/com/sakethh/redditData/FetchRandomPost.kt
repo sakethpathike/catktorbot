@@ -34,11 +34,10 @@ suspend fun fetchRandomPost(): Children {
         @Suppress("ReplaceSizeZeroCheckWithIsEmpty")
         if (!children.data.is_video && children.data.url.contains(regex = Regex("/i.redd.it"))
             && !children.data.over_18 && collectionData.find("""{permalink:"${children.data.permalink}"}""").count() == 0
-            && !children.data.url.contains(regex = Regex("/no more/i"))&& !children.data.url.contains(regex = Regex("/nomore/i"))
-            && !children.data.url.contains(regex = Regex("/dead/i")) && !children.data.url.contains(regex = Regex("/left us/i"))
-            && !children.data.url.contains(regex = Regex("/died/i"))&& !children.data.url.contains(regex = Regex("/passed away/i"))
-            && !children.data.url.contains(regex = Regex("/lost/i"))&& !children.data.url.contains(regex = Regex("/gone/i"))
-            && !children.data.url.contains(regex = Regex("/gone/i"))
+            && !children.data.title.contains(regex = Regex("/no more/i"))&& !children.data.title.contains(regex = Regex("/nomore/i"))
+            && !children.data.title.contains(regex = Regex("/dead/i")) && !children.data.title.contains(regex = Regex("/left us/i"))
+            && !children.data.title.contains(regex = Regex("/died/i"))&& !children.data.title.contains(regex = Regex("/passed away/i"))
+            && !children.data.title.contains(regex = Regex("/lost/i"))&& !children.data.title.contains(regex = Regex("/gone/i"))
         ) {
             fetchedDataFromURL.add(children)
         }

@@ -43,5 +43,5 @@ suspend fun fetchRandomPost(): Children {
             fetchedDataFromURL.add(children)
         }
     }
-    return fetchedDataFromURL.random()
+    return fetchedDataFromURL.random().also { kMongo.close() }
 }

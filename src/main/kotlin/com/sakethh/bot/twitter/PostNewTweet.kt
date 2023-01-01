@@ -24,7 +24,7 @@ fun Routing.postNewTweet() {
             val refURL = Url(fetchedTweetData.data.url).toURI().toURL()
             FileUtils.copyURLToFile(refURL, refFile)
             val tweetTitle =
-                "\"${fetchedTweetData.data.title}\"\n\nu/${fetchedTweetData.data.author} originally posted this on r/${fetchedTweetData.data.subreddit}\nhttps://reddit.com${fetchedTweetData.data.permalink}"
+                "${fetchedTweetData.data.title}\nhttps://reddit.com${fetchedTweetData.data.permalink}"
             val statusUpdate = StatusUpdate.of(tweetTitle).media(refFile)
             twitterBuilder.v1().tweets().updateStatus(statusUpdate)
             val addToDB = addNewPostToDB(author = fetchedTweetData.data.author, is_video = fetchedTweetData.data.is_video, over_18 = fetchedTweetData.data.over_18, permalink = fetchedTweetData.data.permalink, subreddit = fetchedTweetData.data.subreddit, title = fetchedTweetData.data.title, url = fetchedTweetData.data.url)
